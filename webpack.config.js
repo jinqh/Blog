@@ -8,7 +8,13 @@ module.exports = {
   mode: isDev ? 'development' : 'production',
   devtool: isDev ? 'cheap-module-eval-source-map' : false,
   devServer: {
-    contentBase: './dist'
+    contentBase: './dist',
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3001',
+        changeOrigin: true
+      }
+    }
   },
   externals: {
     React: "react",
@@ -26,6 +32,19 @@ module.exports = {
         use: [
           'style-loader',
           'css-loader'
+        ]
+      },
+      {
+        test: /\.less$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+            }
+          },
+          'less-loader'
         ]
       },
       {
@@ -55,7 +74,8 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: 'chin的个人空间'
+      title: 'chin的个人空间',
+      template: './src/index.html'
     })
   ],
   optimization: {

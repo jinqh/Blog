@@ -1,7 +1,11 @@
 const fs = require('fs');
 const express = require('express');
+const { createProxyMiddleware } = require('http-proxy-middleware')
+
 const app = express();
 const port = 3000;
+
+app.use('/api', createProxyMiddleware({ target: 'http://localhost:3001', changeOrigin: true }))
 
 app.use(express.static(__dirname + '/dist'));
 
