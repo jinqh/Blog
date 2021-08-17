@@ -7,10 +7,7 @@ const port = 3000;
 
 app.use(
   "/api",
-  createProxyMiddleware({
-    target: "http://47.106.23.81:3001",
-    changeOrigin: true,
-  })
+  createProxyMiddleware({ target: "http://localhost:3001", changeOrigin: true })
 );
 
 app.use(express.static(__dirname + "/dist"));
@@ -24,5 +21,5 @@ app.get("*", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Blog listening at http://47.106.23.81:${port}`);
+  console.log(`Blog listening at http://localhost:${port}`);
 });
