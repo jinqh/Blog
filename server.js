@@ -13,6 +13,7 @@ app.use(
 app.use(express.static(__dirname + "/dist"));
 
 app.get("*", (req, res) => {
+  console.log("请求来了!");
   if (fs.existsSync(__dirname + "/dist/index.html")) {
     res.sendFile(__dirname + "/dist/index.html");
   } else {
